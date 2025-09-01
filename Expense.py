@@ -1,8 +1,21 @@
 from datetime import datetime as d
 
 class Expense:
+    """
+    A Class that stores Creates Expense Objects
+    """
     def __init__(self, title, cost, note, date = None, time = None):
-
+        """
+        Creates Expense objects
+        Does not returns anything
+        Raises error if contructer condition aren't met
+        Args:
+            title (str): Title of Expense
+            cost (int or float): Monetry value of Expense
+            note (str): A short descriptive note for the purpose of expense
+            date (str, None): Custom or Current Time. Defaults to None.
+            time (str, None): CUstom or Current Time. Defaults to None.
+        """
         self.title = title
         self.cost = cost
         self.note = note
