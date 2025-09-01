@@ -37,6 +37,9 @@ class Expense:
         if len(value) == 0 or value.isspace():
             raise ValueError("Title must contains Words")
         
+        if len(value) > 20:
+            raise ValueError("Title must not be more than 20 letters")
+        
         self._title = value.strip()
         
     @cost.setter
@@ -83,8 +86,6 @@ class Expense:
                 self._date = valid_date.strftime("%d-%b-%Y")
             except ValueError:
                 raise ValueError("Date must be in DD-Mon-YYYY format (e.g., 01-Sep-2025)")
-
-            
         
     def __str__(self):
         return f"{self.title}: Rs.{self.cost}, Time/Date: {self.time}/{self.date} note: {self.note}"

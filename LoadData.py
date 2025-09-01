@@ -96,9 +96,6 @@ class LoadData:
     @staticmethod
     def display_data(expense):
         
-        if not isinstance(expense, dict):
-            raise TypeError("Expense must be a Dictionary Value")
-        
         if not expense:
             print("No Expenses to Show")
             
