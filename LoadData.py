@@ -75,7 +75,6 @@ class LoadData:
                     expenses = json.load(file)
                     
         except (FileNotFoundError, json.JSONDecodeError):
-            print("No Data Found")
             return {}
         
         if year == 0:
@@ -83,7 +82,6 @@ class LoadData:
     
         year_str = str(year)
         if year_str not in expenses:
-            print(f"No data for year {year}")
             return {}
     
         if month == 0:
@@ -91,7 +89,6 @@ class LoadData:
     
         month_str = calendar.month_abbr[month]
         if month_str not in expenses[year_str]:
-            print(f"No data for {month_str} {year}")
             return {}
     
         return expenses[year_str][month_str]
