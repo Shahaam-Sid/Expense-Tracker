@@ -26,7 +26,7 @@ class LoadData:
     def store_to_json(self):
         
         try:
-            with open(self.filepath, 'r') as file:
+            with open(self.__class__.filepath, 'r') as file:
                 self._expenses = json.load(file)
                 
             
@@ -52,7 +52,7 @@ class LoadData:
             
         self._expenses[year][month].append(volatile_dict)
             
-        with open(self.filepath, 'w') as file:
+        with open(self.__class__.filepath, 'w') as file:
             json.dump(self._expenses, file, indent=4)
             
             
@@ -95,5 +95,26 @@ class LoadData:
             return {}
     
         return expenses[year_str][month_str]
-            
+    
+    @staticmethod
+    def display_data(expense):
         
+        if not isinstance(expense, dict):
+            raise TypeError("Expense must be a Dictionary Value")
+        
+        if not expense:
+            print("No Expenses to Show")
+            
+        if isinstance(expense, list):
+            for e in expense:
+                print(f"{e['date']} | {e['time']} | {e['title']} | ${e['cost']} | {e['note']}")
+                
+        elif isinstance(expense, dict):
+            for month, items in expense.items():
+                print (f"--- {month} ---")
+                for e in items:
+                    print(f"{e['date']} | {e['time']} | {e['title']} | ${e['cost']} | {e['note']}")
+                    
+        else:
+            raise ValueError("Wrong Input")
+            
