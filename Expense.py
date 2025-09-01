@@ -1,19 +1,13 @@
 from datetime import datetime as d
 
 class Expense:
-    def __init__(self, title, cost, note):
+    def __init__(self, title, cost, note, date = None, time = None):
 
         self.title = title
         self.cost = cost
         self.note = note
-        
-        dd = d.today().strftime("%d-%b-%Y")
-        
-        self._date = dd
-        
-        tt = d.now().strftime("%H:%M")
-        
-        self._time = tt
+        self.time = time
+        self.date = date
         
     @property
     def title(self):
@@ -40,10 +34,10 @@ class Expense:
         if not isinstance(value, str):
             raise TypeError("Title must be String")
         
-        if len(value) == 0 or value.isspace() or value.isdigit():
+        if len(value) == 0 or value.isspace():
             raise ValueError("Title must contains Words")
         
-        self._title = value
+        self._title = value.strip()
         
     @cost.setter
     def cost(self, value):
@@ -63,7 +57,34 @@ class Expense:
         if len(value) == 0 or value.isspace() or value.isdigit():
             raise ValueError("Note must contains Words")
         
-        self._note = value
+        if len(value) > 50:
+            raise ValueError("Note must not be more than 50 letters")
+        
+        self._note = value.strip()
+        
+    @time.setter
+    def time(self, value = None):
+        if value is None:
+            self._time = d.now().strftime("%H:%M")
+        else:
+            try:
+                valid_time = d.strptime(value, "%H:%M")
+                self._time = valid_time.strftime("%H:%M")
+            except ValueError:
+                raise ValueError("Time must be in HH:MM format (24-hour)")
+            
+    @date.setter
+    def date(self, value = None):
+        if value is None:
+            self._date = d.now().strftime("%d-%b-%Y")
+        else:
+            try:
+                valid_date = d.strptime(value, "%d-%b-%Y")
+                self._date = valid_date.strftime("%d-%b-%Y")
+            except ValueError:
+                raise ValueError("Date must be in DD-Mon-YYYY format (e.g., 01-Sep-2025)")
+
+            
         
     def __str__(self):
         return f"{self.title}: Rs.{self.cost}, Time/Date: {self.time}/{self.date} note: {self.note}"
