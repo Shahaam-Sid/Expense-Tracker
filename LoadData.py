@@ -4,10 +4,22 @@ from datetime import datetime as d
 import calendar
 
 class LoadData:
+    """
+    A Class that Stores, Extracts and Displays
+    Data from JSON file
+    """
     
     filepath = "tracker.json"
     
     def __init__(self, expense):
+        """
+        Inputs Expense
+        Allows to Store expense in json file
+        can extract and display expenses from json file
+
+        Args:
+            expense (Expense)
+        """
         self.expense = expense
         self._expenses = {}
         
@@ -24,6 +36,9 @@ class LoadData:
 
             
     def store_to_json(self):
+        """
+        Store Data to json file
+        """
         
         try:
             with open(self.__class__.filepath, 'r') as file:
@@ -58,6 +73,15 @@ class LoadData:
             
     @classmethod
     def extract_from_json(cls, month = 0, year = 0):
+        """Extracts Data from json file
+
+        Args:
+            month (int, float): Month for which required Expenses
+            year (int, float): Year for the required Expenses
+
+        Returns:
+            List or Dictionaries
+        """
         if not isinstance(month, int):
             raise TypeError("Month can only be a Integer Value")
         
@@ -95,6 +119,12 @@ class LoadData:
     
     @staticmethod
     def display_data(expense):
+        """
+        Displays Data
+
+        Args:
+            expense (return of extract_from_json())
+        """
         
         if not expense:
             print("No Expenses to Show")
