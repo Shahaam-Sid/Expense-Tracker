@@ -1,5 +1,6 @@
 import json
 from Expense import Expense
+from datetime import datetime as d
 
 class LoadData:
     
@@ -7,7 +8,7 @@ class LoadData:
     
     def __init__(self, expense):
         self.expense = expense
-        self._expenses = []
+        self._expenses = {}
         
     @property
     def expense(self):
@@ -29,7 +30,16 @@ class LoadData:
                 
             
         except (FileNotFoundError, json.JSONDecodeError):
-            self._expenses = []
+            self._expenses = {}
+            
+        expense_date = d.strptime(self.expense.date, "%d-%b-%Y")
+        year = str(expense_date.year)
+        month = expense_date.strftime("%b")
+        
+        if year not in self._expenses:
+            self._expenses[year] = {}
+        if month not in self._expenses[year]:
+            self._expenses[year][month] = []
         
         volatile_dict =  {
             "title": self.expense.title,
@@ -39,7 +49,7 @@ class LoadData:
             "note": self.expense.note
         }
             
-        self._expenses.append(volatile_dict)
+        self._expenses[year][month].append(volatile_dict)
             
         with open(self.filepath, 'w') as file:
             json.dump(self._expenses, file, indent=4)
