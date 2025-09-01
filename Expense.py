@@ -67,3 +67,13 @@ class Expense:
         
     def __str__(self):
         return f"{self.title}: Rs.{self.cost}, Time/Date: {self.time}/{self.date} note: {self.note}"
+
+    def __repr__ (self):
+        return f"""
+Expense(
+    'title': "{self.title}",
+    'cost': "{self.cost}",
+    'time': "{self.time}",
+    'date': "{self.date}",
+    'note': "{self.note}"
+)"""
