@@ -4,6 +4,10 @@ An Expense Tracker that:
 2. Displays with and without Month, Year Filter
 3. Can Add Expense with current and past time
 
+### Requirements
+
+- Colorama Module
+
 ### Project Structure
 ```
 Expense-Tracker

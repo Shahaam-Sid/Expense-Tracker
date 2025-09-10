@@ -1,25 +1,28 @@
+import colorama as cr
 from Expense import Expense
 from LoadData import LoadData
 
+cr.init(autoreset=True)
+
 try:
-    print("----- EXPENSE TRACKING APP -----")
+    print(cr.Fore.BLUE + cr.Style.BRIGHT + "----- EXPENSE TRACKING APP -----")
     while True:
-        print("""
+        print(cr.Fore.BLUE + """
 Input Any of The Following:
 1 -- New Expense
 2 -- Check Expense
 3 -- Quit App
 """)
         
-        choice = input("Enter you choice(1, 2 or 3)> ")
+        choice = input(cr.Fore.GREEN + "Enter you choice(1, 2 or 3)> ")
          
         match choice:
             case "1": 
-                title = input("Enter Title(20 Characters Max): ")
-                cost = float(input("Enter Cost: "))
-                note = input("Write Short Explainatory Note(50 Characters Max): ")
+                title = input(cr.Fore.GREEN + "Enter Title(20 Characters Max): ")
+                cost = float(cr.Fore.GREEN + input("Enter Cost: "))
+                note = input(cr.Fore.GREEN + "Write Short Explainatory Note(50 Characters Max): ")
                 
-                currenttd = input("Do You Want Current Time & Date(Y or N): ").upper()
+                currenttd = input(cr.Fore.BLUE + "Do You Want Current Time & Date(Y or N): ").upper()
                 
                 if currenttd == "Y":
                     x = Expense(title, cost, note)
@@ -31,19 +34,19 @@ Enter Time Like 'hour:minute' i.e '09:42'
 Enter Date Like  'DD-Mon-YYYY' i.e '06-jul-2005'                 
                           """)
                     
-                    time = input("Enter Time: ")
-                    date = input("Enter Date: ")
+                    time = input(cr.Fore.GREEN + "Enter Time: ")
+                    date = input(cr.Fore.GREEN + "Enter Date: ")
                     
                     x = Expense(title, cost, note, date, time)
 
                 y = LoadData(x)
                 y.store_to_json()
-                print("Expense Added")
+                print(cr.Fore.GREEN + cr.Style.BRIGHT + "Expense Added")
                 print()
             
             case "2":
-                month = int(input("Enter Month(1-12): "))
-                year = int(input("Enter Year: "))
+                month = int(input(cr.Fore.GREEN + "Enter Month(1-12): "))
+                year = int(input(cr.Fore.GREEN + "Enter Year: "))
                 
                 z = LoadData.extract_from_json(month, year)
                 LoadData.display_data(z)
@@ -51,16 +54,16 @@ Enter Date Like  'DD-Mon-YYYY' i.e '06-jul-2005'
             case "3":
                 break
             case _:
-                print("Invalid Input")
+                print(cr.Back.RED + cr.Fore.WHITE + "Invalid Input")
     
 except TypeError as e:
-    print("Error: ", e)
+    print(f"{cr.Back.RED}{cr.Fore.WHITE}Error: {e}")
     
 except ValueError as e:
-    print("Error: ", e)
+    print(f"{cr.Back.RED}{cr.Fore.WHITE}Error: {e}")
     
 except Exception as e:
-    print("Unexpected Error")
+    print(cr.Back.RED + cr.Fore.WHITE + "Unexpected Error")
 
 finally:
-    print("----- Program -- End -----")
+    print(cr.Fore.BLUE + cr.Style.BRIGHT + "----- Program -- End -----")

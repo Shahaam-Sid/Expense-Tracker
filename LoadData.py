@@ -1,7 +1,10 @@
+import colorama as cr
 import json
 from Expense import Expense
 from datetime import datetime as d
 import calendar
+
+cr.init(autoreset=True)
 
 class LoadData:
     """
@@ -127,7 +130,7 @@ class LoadData:
         """
         
         if not expense:
-            print("No Expenses to Show")
+            print(cr.Fore.YELLOW + "No Expenses to Show")
             
         if isinstance(expense, list):
             for e in expense:
